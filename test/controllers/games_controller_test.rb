@@ -2,7 +2,7 @@ require "test_helper"
 
 class GamesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @game = games(:one)
+    @game = games(:uno_classic)
   end
 
   test "should get index" do
@@ -17,10 +17,17 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create game" do
     assert_difference("Game.count") do
-      post games_url, params: { game: { name: @game.name, rules_url: @game.rules_url, shop_url: @game.shop_url } }
+      post games_url, params: { game: { name: "New Game", rules_url: "new url", shop_url: "new url" } }
     end
 
     assert_redirected_to game_url(Game.last)
+  end
+
+  test "should not create game with duplicate name" do
+    assert_no_difference("Game.count") do
+      post games_url, params: { game: { name: @game.name, rules_url: @game.rules_url, shop_url: @game.shop_url } }
+    end
+    assert_response :unprocessable_entity
   end
 
   test "should show game" do

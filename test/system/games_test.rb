@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class GamesTest < ApplicationSystemTestCase
   setup do
-    @game = games(:one)
+    @game = games(:uno_classic)
   end
 
   test "visiting the index" do
@@ -14,9 +14,9 @@ class GamesTest < ApplicationSystemTestCase
     visit games_url
     click_on "New game"
 
-    fill_in "Name", with: @game.name
-    fill_in "Rules url", with: @game.rules_url
-    fill_in "Shop url", with: @game.shop_url
+    fill_in "Name", with: "New Game"
+    fill_in "Rules url", with: "new url"
+    fill_in "Shop url", with: "new url"
     click_on "Create Game"
 
     assert_text "Game was successfully created"
