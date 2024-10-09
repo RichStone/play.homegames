@@ -35,6 +35,7 @@ class Competition
   belongs_to :game
   has_many :rounds
   has_many :players
+  has_one :score_config
   has_one :game_end_strategy
 end
 
