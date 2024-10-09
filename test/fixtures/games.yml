@@ -3,9 +3,9 @@
 uno_classic:
   name: UNO Classic
   rules_url: https://www.ultraboardgames.com/uno/game-rules.php
-  shop_url:
+  shop_url: https://amazon.com/uno
 
 chess:
   name: Chess
   rules_url: https://www.ultraboardgames.com/chess/game-rules.php
-  shop_url:
+  shop_url: https://amazon.com/chess
