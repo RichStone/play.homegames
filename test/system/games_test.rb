@@ -14,7 +14,7 @@ class GamesTest < ApplicationSystemTestCase
     visit games_url
     click_on "New game"
 
-    fill_in "Name", with: "New Game"
+    fill_in "Name", with: "Newer Game"
     fill_in "Rules url", with: "new url"
     fill_in "Shop url", with: "new url"
     click_on "Create Game"
@@ -37,9 +37,10 @@ class GamesTest < ApplicationSystemTestCase
   end
 
   test "should destroy Game" do
-    visit game_url(@game)
+    new_game = games(:without_competition)
+    visit game_url(new_game)
     click_on "Destroy this game", match: :first
 
-    assert_text "Game was successfully destroyed"
+    assert_text "Game was successfully deleted"
   end
 end

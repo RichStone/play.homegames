@@ -17,7 +17,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create game" do
     assert_difference("Game.count") do
-      post games_url, params: { game: { name: "New Game", rules_url: "new url", shop_url: "new url" } }
+      post games_url, params: { game: { name: "Newer Game", rules_url: "new url", shop_url: "new url" } }
     end
 
     assert_redirected_to game_url(Game.last)
@@ -45,11 +45,20 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to game_url(@game)
   end
 
-  test "should destroy game" do
+  test "should destroy game that has no competition" do
+    without_competition = games(:without_competition)
     assert_difference("Game.count", -1) do
-      delete game_url(@game)
+      delete game_url(without_competition)
     end
 
     assert_redirected_to games_url
+  end
+
+  test "should not destroy game that has a competition" do
+    assert_no_difference("Game.count") do
+      delete game_url(@game)
+    end
+
+    assert_response :unprocessable_entity
   end
 end

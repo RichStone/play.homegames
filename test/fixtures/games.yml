@@ -9,3 +9,8 @@ chess:
   name: Chess
   rules_url: https://www.ultraboardgames.com/chess/game-rules.php
   shop_url: https://amazon.com/chess
+
+without_competition:
+  name: New Game
+  rules_url:
+  shop_url:

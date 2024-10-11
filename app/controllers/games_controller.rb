@@ -49,11 +49,14 @@ class GamesController < ApplicationController
 
   # DELETE /games/1 or /games/1.json
   def destroy
-    @game.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to games_path, status: :see_other, notice: "Game was successfully destroyed." }
-      format.json { head :no_content }
+    @game = Game.find(params[:id])
+    if @game.competitions.any?
+      flash[:alert] = "Cannot delete a game that has ongoing competitions."
+      redirect_to games_url, status: :unprocessable_entity
+    else
+      @game.destroy
+      flash[:notice] = "Game was successfully deleted."
+      redirect_to games_url
     end
   end
 
