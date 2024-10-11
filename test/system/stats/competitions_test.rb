@@ -14,7 +14,9 @@ class Stats::CompetitionsTest < ApplicationSystemTestCase
     visit stats_competitions_url
     click_on "New competition"
 
-    fill_in "Game", with: @stats_competition.game_id
+    # Use select to choose an option from the dropdown
+    select Game.find(@stats_competition.game_id).name, from: "Game"
+
     fill_in "Name", with: @stats_competition.name
     click_on "Create Competition"
 
@@ -26,7 +28,12 @@ class Stats::CompetitionsTest < ApplicationSystemTestCase
     visit stats_competition_url(@stats_competition)
     click_on "Edit this competition", match: :first
 
-    fill_in "Game", with: @stats_competition.game_id
+    # Check if the name field is pre-filled with the correct value
+    assert_field "Name", with: "Competition ##{@stats_competition.id}"
+
+    # Use select to choose an option from the dropdown
+    select Game.find(@stats_competition.game_id).name, from: "Game"
+
     fill_in "Name", with: @stats_competition.name
     click_on "Update Competition"
 
