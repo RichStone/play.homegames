@@ -35,8 +35,29 @@ class Competition
   belongs_to :game
   has_many :rounds
   has_many :players
-  has_one :score_config
   has_one :game_end_strategy
+
+  validate :score_config, ScoreConfigValidator
+  # We don't want to create a ScoreConfig for each competition.
+  # We'll validate that only existing names are taken
+  #
+  # score_config will be a JSON like:
+  {
+    type: {
+      name: "numeric",
+      label: "Numbers" # Actually, no need to store the label, we'll get it from a view helper.
+    },
+    direction: {
+      name: "positive",
+      label: "The numbers can only be added"
+    },
+    allowed_scorers: {
+      name: "only_one",
+      label: "Only one player can score"
+    }
+  }
+  # Then, when saving the round, it will get competition.score_config to validate in a
+  # RoundScoreValidator.validate(competition.score_config).
 end
 
 class GameEndStrategy
